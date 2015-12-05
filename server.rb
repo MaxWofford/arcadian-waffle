@@ -49,7 +49,7 @@ post '/twiml.xml' do
   end.text
 end
 
-get '/insult' do
-  insult(params[:number], params[:classy])
-  "Your message to #{params[:number]} has just gone through"
+post '/' do
+  insult(params[:phone_number], params[:classy])
+  "Your message to #{params[:phone_number]} has just gone through"
 end
