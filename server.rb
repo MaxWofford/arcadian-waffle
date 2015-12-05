@@ -3,6 +3,7 @@ require 'sinatra'
 require 'twilio-ruby'
 require 'yaml'
 
+Tilt.register Tilt::ERBTemplate, 'html.erb'
 
 # Twilio setup
 
@@ -27,7 +28,7 @@ end
 # Routes
 
 get '/' do
-  send_file File.join(settings.public_folder, 'index.html')
+  erb :index
 end
 
 post '/twiml/classy.xml' do
@@ -52,4 +53,5 @@ end
 post '/' do
   insult(params[:phone_number], params[:classy])
   "Your message to #{params[:phone_number]} has just gone through"
+  erb :submitted
 end
