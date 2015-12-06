@@ -20,6 +20,11 @@
         </div>
     </nav>
     <br />
+    <% if @phone_number %>
+      <div class='container'>
+        Calling "<%= params[:phone_number] %>" now!
+      </div>
+    <% end %>
     <div class='container'>
         <div class='row valign-wrapper'>
             <div class='col s4 l4 valign'>

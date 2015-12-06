@@ -52,6 +52,6 @@ end
 
 post '/' do
   insult(params[:phone_number], params[:classy])
-  "Your message to #{params[:phone_number]} has just gone through"
-  erb :submitted
+  @phone_number = params[:phone_number]
+  erb :index
 end
