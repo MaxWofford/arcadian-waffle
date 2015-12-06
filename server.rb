@@ -13,16 +13,20 @@ Twilio.configure do |config|
 end
 
 def insult(target_phone_number, classy)
-  @base_url ||= "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
-  url = @base_url
-  url += params[:classy] ? '/twiml/classy' : '/twiml'
-  url += '.xml'
-  @twilio = Twilio::REST::Client.new
-  @twilio.calls.create(
-    from: ENV['TWILIO_PHONE_NUMBER'],
-    to: target_phone_number,
-    url: url
-  )
+  begin
+    @base_url ||= "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
+    url = @base_url
+    url += params[:classy] ? '/twiml/classy' : '/twiml'
+    url += '.xml'
+    @client = Twilio::REST::Client.new
+    @client.calls.create(
+      from: ENV['TWILIO_PHONE_NUMBER'],
+      to: target_phone_number,
+      url: url
+    )
+  rescue Twilio::REST::RequestError => e
+    puts e.message
+  end
 end
 
 # Routes
