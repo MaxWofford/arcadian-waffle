@@ -3,13 +3,17 @@ require 'sinatra'
 require 'twilio-ruby'
 require 'yaml'
 
+set twilio_account_sid: ENV['TWILIO_ACCOUNT_SID']
+set twilio_auth_token: ENV['TWILIO_AUTH_TOKEN']
+set twilio_phone_number: ENV['TWILIO_PHONE_NUMBER']
+
+# Render `html.erb` files in /views folder
 Tilt.register Tilt::ERBTemplate, 'html.erb'
 
-# Twilio setup
-
+# Twilio authentication
 Twilio.configure do |config|
-  config.account_sid = ENV['TWILIO_ACCOUNT_SID']
-  config.auth_token = ENV['TWILIO_AUTH_TOKEN']
+  config.account_sid = settings.twilio_account_sid
+  config.auth_token = settings.twilio_auth_token
 end
 
 def insult(target_phone_number, classy)
@@ -20,7 +24,7 @@ def insult(target_phone_number, classy)
     url += '.xml'
     @client = Twilio::REST::Client.new
     @client.calls.create(
-      from: ENV['TWILIO_PHONE_NUMBER'],
+      from: settings.twilio_phone_number,
       to: target_phone_number,
       url: url
     )
