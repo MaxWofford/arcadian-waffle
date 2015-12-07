@@ -2,5 +2,5 @@ main:
   build: .
   ports:
     - 3000:3000
-  command: ruby server.rb -o 0.0.0.0
+  command: bundle exec rackup -o 0.0.0.0 -p 3000
   env_file: .env
