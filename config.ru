@@ -2,3 +2,6 @@
 
 require './server'
 run Sinatra::Application
+
+# Enable realtime logging for heroku
+$stdout.sync = true
