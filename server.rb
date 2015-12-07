@@ -18,7 +18,8 @@ end
 
 def insult(target_phone_number, classy)
   begin
-    @base_url ||= "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
+    @base_url ||= "#{request.env['rack.url_scheme']}://"\
+      "#{request.env['HTTP_HOST']}"
     url = @base_url
     url += params[:classy] ? '/twiml/classy' : '/twiml'
     url += '.xml'
